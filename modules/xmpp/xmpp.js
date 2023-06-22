@@ -727,7 +727,7 @@ export default class XMPP extends Listenable {
      * Returns the room JID based on the passed room name and domain.
      *
      * @param {string} roomName - The room name.
-     * @param {string} domain - The domain.
+     * @param {string} domain - The domain, optional.
      * @returns {string} - The room JID.
      */
     getRoomJid(roomName, domain) {
@@ -737,11 +737,11 @@ export default class XMPP extends Listenable {
     /**
      * Check if a room with the passed JID is already created.
      *
-     * @param {string} roomJid - The JID of the room.
+     * @param {string} roomName - The name of the room.
      * @returns {boolean}
      */
-    isRoomCreated(roomName, domain) {
-        return this.connection.emuc.isRoomCreated(this.getRoomJid(roomName, domain));
+    isRoomCreated(roomName) {
+        return this.connection.emuc.isRoomCreated(this.getRoomJid(roomName));
     }
 
     /**
