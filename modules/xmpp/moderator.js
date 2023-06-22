@@ -314,10 +314,19 @@ export default class Moderator {
                 // decide to send our IQ.
                 this.connection.flush();
             } else {
+                const conferenceRequest = this._createConferenceRequest(roomJid);
+
+                if (FeatureFlags.isJoinAsVisitorSupported()) {
+                    if (!conferenceRequest.properties) {
+                        conferenceRequest.properties = {};
+                    }
+                    conferenceRequest.properties['visitors-version'] = 1;
+                }
+
                 logger.info(`Sending conference request over HTTP to ${this.targetUrl}`);
                 fetch(this.targetUrl, {
                     method: 'POST',
-                    body: JSON.stringify(this._createConferenceRequest(roomJid)),
+                    body: JSON.stringify(conferenceRequest),
                     headers: { 'Content-Type': 'application/json' }
                 })
                     .then(response => {
