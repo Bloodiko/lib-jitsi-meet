@@ -35,4 +35,13 @@ EventEmitterForwarder.prototype.forward = function(...args) {
         Function.prototype.bind.apply(this.dest.emit, args));
 };
 
+/**
+ * Clears the listeners for the supplied events.
+ *
+ * @param args all the events which listeners to be cleaned.
+ */
+EventEmitterForwarder.prototype.removeListeners = function(...args) {
+    args.forEach(a => this.src.removeAllListeners(a));
+};
+
 module.exports = EventEmitterForwarder;
