@@ -201,6 +201,22 @@ export default class XmppConnection extends Listenable {
     }
 
     /**
+     * The moderator/focus (responsible for direct communication with jicofo).
+     * @returns {*}
+     */
+    get moderator() {
+        return this._moderator;
+    }
+
+    /**
+     * Sets the moderator instance responsible for direct communication with jicofo.
+     * @param moderator
+     */
+    set moderator(moderator) {
+        this._moderator = moderator;
+    }
+
+    /**
      * Sets new value for shard.
      * @param value the new shard value.
      */

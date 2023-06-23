@@ -3,6 +3,7 @@ import { $pres } from 'strophe.js';
 import { XMPPEvents } from '../../service/xmpp/XMPPEvents';
 
 import ChatRoom, { parser } from './ChatRoom';
+import Moderator from './moderator';
 
 // This rule makes creating the xml elements take up way more
 // space than necessary.
@@ -143,7 +144,9 @@ describe('ChatRoom', () => {
             };
 
             room = new ChatRoom(
-                {} /* connection */,
+                {
+                    moderator: new Moderator({}, {})
+                } /* connection */,
                 'jid',
                 'password',
                 xmpp,
@@ -355,8 +358,11 @@ describe('ChatRoom', () => {
             };
 
             room = new ChatRoom(
-                // eslint-disable-next-line no-empty-function
-                { send: () => {} } /* connection */,
+                {
+                    moderator: new Moderator({}, {}),
+                    // eslint-disable-next-line no-empty-function
+                    send: () => {}
+                } /* connection */,
                 'jid',
                 'password',
                 xmpp,

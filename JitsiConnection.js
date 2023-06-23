@@ -1,6 +1,7 @@
 import JitsiConference from './JitsiConference';
 import * as JitsiConnectionEvents from './JitsiConnectionEvents';
 import Statistics from './modules/statistics/statistics';
+import Moderator from './modules/xmpp/moderator';
 import XMPP from './modules/xmpp/xmpp';
 import {
     CONNECTION_DISCONNECTED as ANALYTICS_CONNECTION_DISCONNECTED,
@@ -22,6 +23,7 @@ export default function JitsiConnection(appID, token, options) {
     this.token = token;
     this.options = options;
     this.xmpp = new XMPP(options, token);
+    this.xmpp.connection.moderator = new Moderator(this.xmpp, this.options);
 
     /* eslint-disable max-params */
     this.addEventListener(JitsiConnectionEvents.CONNECTION_FAILED,
